@@ -46,7 +46,7 @@ class CharacterCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    character.status.toCapitalized(),
+                    character.status.capitalizeIfUnknown(),
                     style: TextStyle(
                       color:
                           character.status == 'Alive'

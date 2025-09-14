@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CustomSearchField extends StatelessWidget {
-  const CustomSearchField({
+class StatusDropdown extends StatelessWidget {
+  const StatusDropdown({
     super.key,
+    required this.items,
+    required this.selectedValue,
     required this.hintText,
     required this.onChanged,
-    required this.icon,
-    this.keyboardType = TextInputType.text,
-    this.controller,
   });
 
+  final List<String> items;
+  final String? selectedValue;
   final String hintText;
-  final Function(String) onChanged;
-  final TextInputType keyboardType;
-  final IconData icon;
-  final TextEditingController? controller;
+  final Function(String?) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +29,23 @@ class CustomSearchField extends StatelessWidget {
           ),
         ],
       ),
-      child: TextField(
-        controller: controller,
+      child: DropdownButtonFormField<String>(
+        initialValue: selectedValue,
         onChanged: onChanged,
-        keyboardType: keyboardType,
+        borderRadius: BorderRadius.circular(16),
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 15,
+          ),
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.grey),
           border: InputBorder.none,
-          prefixIcon: Icon(icon, color: Colors.grey),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          prefixIcon: const Icon(Icons.person, color: Colors.grey),
         ),
+        items: items.map((String value) {
+          return DropdownMenuItem<String>(value: value, child: Text(value));
+        }).toList(),
       ),
     );
   }

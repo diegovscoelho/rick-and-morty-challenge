@@ -8,19 +8,19 @@ class LoadingAnimation extends StatefulWidget {
 }
 
 class _LoadingAnimationState extends State<LoadingAnimation> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+  late AnimationController controller;
+  late Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
     )..repeat(reverse: true);
-    _animation = Tween(begin: 0.8, end: 1.2).animate(
+    animation = Tween(begin: 0.8, end: 1.2).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: Curves.easeInOut,
       ),
     );
@@ -28,14 +28,14 @@ class _LoadingAnimationState extends State<LoadingAnimation> with SingleTickerPr
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: _animation,
+      scale: animation,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
