@@ -3,9 +3,9 @@ import 'package:way_data_technical_challenge/data/models/character_model.dart';
 import 'package:way_data_technical_challenge/domain/repositories/character_repository.dart';
 
 class CharacterRepositoryImpl implements CharacterRepository {
-  final CharacterService characterService;
-
   CharacterRepositoryImpl({required this.characterService});
+
+  final CharacterService characterService;
 
   @override
   Future<List<CharacterModel>> getAllCharacters() async {

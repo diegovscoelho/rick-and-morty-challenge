@@ -3,16 +3,15 @@ import 'package:way_data_technical_challenge/data/models/character_model.dart';
 import 'package:way_data_technical_challenge/domain/usecases/get_all_characters_usecase.dart';
 
 class CharacterController extends GetxController {
+  CharacterController({required this.getAllCharactersUsecase});
 
   final GetAllCharactersUsecase getAllCharactersUsecase;
-
   final List<CharacterModel> _allCharacters = <CharacterModel>[];
-  
-  final RxList<CharacterModel> filteredCharacters = <CharacterModel>[].obs; 
-
+  final RxList<CharacterModel> filteredCharacters = <CharacterModel>[].obs;
   final RxBool isLoading = true.obs;
 
-  CharacterController({required this.getAllCharactersUsecase});
+  final RxString _nameQuery = ''.obs;
+  final RxString _episodeQuery = ''.obs;
 
   @override
   void onInit() {
@@ -34,17 +33,33 @@ class CharacterController extends GetxController {
   }
 
   void filterCharacters(String query) {
-    if (query.isEmpty) {
-      filteredCharacters.value = _allCharacters;
-      return;
-    }
+    _nameQuery.value = query;
+    _applyFilters();
+  }
 
-    final lowercaseQuery = query.toLowerCase(); 
-    
+  void filterByEpisode(String query) {
+    _episodeQuery.value = query;
+    _applyFilters();
+  }
+
+  void _applyFilters() {
+    final nameQuery = _nameQuery.value.toLowerCase();
+    final episodeQuery = _episodeQuery.value.toLowerCase();
+
     final filteredList = _allCharacters.where((character) {
-      return character.name.toLowerCase().contains(lowercaseQuery);
+      bool nameMatch = character.name.toLowerCase().contains(nameQuery);
+      bool episodeMatch = true;
+
+      if (episodeQuery.isNotEmpty) {
+        episodeMatch = character.episode.any((url) {
+          final uri = Uri.parse(url);
+          return uri.pathSegments.last == episodeQuery;
+        });
+      }
+
+      return nameMatch && episodeMatch;
     }).toList();
-    
-    filteredCharacters.value = filteredList; 
+
+    filteredCharacters.value = filteredList;
   }
 }

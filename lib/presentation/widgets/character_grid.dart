@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:way_data_technical_challenge/presentation/controllers/character_controller.dart';
 import 'package:way_data_technical_challenge/presentation/widgets/character_card.dart';
+import 'package:way_data_technical_challenge/presentation/widgets/loading_animation.dart';
 
 class CharacterGrid extends GetView<CharacterController> {
   const CharacterGrid({super.key});
@@ -11,9 +12,8 @@ class CharacterGrid extends GetView<CharacterController> {
     return Obx(
       () {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: LoadingAnimation());
         }
-        
         if (controller.filteredCharacters.isEmpty) {
           return const Center(
             child: Padding(
@@ -26,7 +26,6 @@ class CharacterGrid extends GetView<CharacterController> {
             ),
           );
         }
-
         return GridView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -41,7 +40,7 @@ class CharacterGrid extends GetView<CharacterController> {
             return CharacterCard(
               character: character,
               onTap: () {
-                // TODO: Implementar navegação para a página de detalhes
+                Get.toNamed('/character_details_page', arguments: character);
               },
             );
           },
