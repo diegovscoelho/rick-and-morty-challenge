@@ -9,6 +9,8 @@ void main() {
   runApp(const MyApp());
 }
 
+// Optei por utilizar o inglês para a linguagem da aplicação por conta da diversidade de localidades e espécies retornadas pela api, e todas elas vem com nome em inglês.
+// Portanto, pra manter a aplicação coerente, decidi optar pelo inglês.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

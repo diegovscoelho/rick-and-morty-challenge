@@ -131,7 +131,7 @@ class CharacterDetailsPage extends GetView<CharacterController> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
             ]),
           ),
         ],

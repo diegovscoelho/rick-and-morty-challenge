@@ -21,24 +21,29 @@ class DetailRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (icon != null)
-            Padding(
+          Visibility(
+            visible: icon != null,
+            child: Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Icon(icon, color: Colors.white, size: 20),
             ),
+          ),
           Expanded(
             child: RichText(
               text: TextSpan(
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
                 children: [
                   TextSpan(
                     text: '$label ',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  TextSpan(text: value, style: TextStyle(color: color)),
+                  TextSpan(
+                    text: value,
+                    style: TextStyle(color: color),
+                  ),
                 ],
               ),
             ),

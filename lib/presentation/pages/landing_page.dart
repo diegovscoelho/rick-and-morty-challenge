@@ -21,14 +21,14 @@ class LandingPage extends GetView<CharacterController> {
         return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 96),
+              padding: const EdgeInsets.only(top: 80),
               child: SvgPicture.asset(
                 'assets/images/rick_and_morty.svg',
                 height: 95,
               ),
             ),
             const SizedBox(height: 32),
-            Column(children: [CharacterSearchFilters()]),
+            CharacterSearchFilters(),
             const Expanded(child: CharacterGrid()),
           ],
         );
